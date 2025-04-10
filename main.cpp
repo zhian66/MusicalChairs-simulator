@@ -33,10 +33,10 @@ struct Participant {
 };
 
 std::vector<Participant> participants;
-std::vector<std::unique_ptr<std::mutex>> chairLocks;
+std::vector<std::unique_ptr<std::mutex> > chairLocks;
 std::mutex winCountMutex;
 
-void compete(Participant& p, std::vector<std::unique_ptr<std::mutex>>& chairLocks) {
+void compete(Participant& p, std::vector<std::unique_ptr<std::mutex> >& chairLocks) {
     // 模擬準備時間（速度越快越早搶）
     int delay = static_cast<int>((1.0 - p.speed) * 1000);
     std::this_thread::sleep_for(std::chrono::milliseconds(delay));
@@ -120,9 +120,11 @@ int main(int argc, char* argv[]) {
         std::mt19937 gen(rd());
         std::vector<int> indices;
         std::vector<double> weights;
+        int k = 2;  // 調整權重的參數，越大越不公平
         for (int i = 0; i < N; ++i) {
             indices.push_back(i);
-            weights.push_back(1.0 / (1 + participants[i].winCount));  // 勝場越多，機率越小
+            // weights.push_back(1.0 / (1 + participants[i].winCount));  // 勝場越多，機率越小
+            weights.push_back(1.0 / std::pow(1 + participants[i].winCount, k));
         }
 
         std::discrete_distribution<> dist(weights.begin(), weights.end());
