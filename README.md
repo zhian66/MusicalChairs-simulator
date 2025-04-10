@@ -78,7 +78,7 @@ Max-Min Win Gap: 23
 
 We get mean win count 100!
 
-# 
+<img width="483" alt="image" src="https://github.com/user-attachments/assets/6c741626-f09f-45c6-ad82-c9c625c978d2" />
 
 # Futher Work
 
