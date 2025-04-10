@@ -80,6 +80,61 @@ We get mean win count 100!
 
 <img width="483" alt="image" src="https://github.com/user-attachments/assets/6c741626-f09f-45c6-ad82-c9c625c978d2" />
 
+# Methodology
+
+Initialization:
+```cpp=
+// === Initialization ===
+Input N, M, R, W  // N = number of participants, M = number of chairs
+                  // R = number of rounds, W = minimum wins per participant
+
+If R * M < N * W:
+    Print "Impossible to complete"
+    Exit program
+
+// Initialize participant list
+For i = 0 to N-1:
+    Participant[i].id = i
+    Participant[i].winCount = 0
+    Participant[i].speed = random value in [0.0, 1.0]  // higher = slower
+
+// Initialize chair locks
+For i = 0 to M-1:
+    Create chairLocks[i] as mutex
+
+// Print participant speeds
+Sort participants by descending speed
+For each participant:
+    Print ID and Speed
+```
+
+Simulation: 
+```
+// === Simulation ===
+
+For round = 1 to R:
+    // Reset all chairs (unlock forcibly)
+    For each chair in chairLocks:
+        chair.unlock()
+
+    // Mixed selection strategy based on win count
+    For i = 0 to N-1:
+        weight[i] = 1 / (1 + winCount[i])^k  
+
+    selected = empty set
+    While selected.size < M:
+        Randomly sample one index using weighted probability
+        If index not in selected:
+            Add index to selected
+
+    // Start threads for each selected participant
+    For each index in selected:
+        Start thread run: compete(participant[index], chairLocks)
+
+    // Wait for all threads to finish
+    Join all threads
+```
+
 # Futher Work
 
 Cause we
