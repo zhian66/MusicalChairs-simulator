@@ -135,6 +135,27 @@ For round = 1 to R:
     Join all threads
 ```
 
+The function of compete
+
+```
+Function compete(participant p, chairLocks):
+    // Simulate delay based on speed
+    Sleep for (1.0 - p.speed) * 1000 milliseconds
+
+    // Shuffle chair order
+    Shuffle chair indices
+
+    // Try to grab any available chair
+    For each index i in shuffled chair list:
+        If chair[i].try_lock():
+            Lock winCountMutex
+            p.winCount += 1
+            Unlock winCountMutex
+
+            Unlock chair[i]  // Release chair immediately
+            Break
+```
+
 # Futher Work
 
 Cause we
