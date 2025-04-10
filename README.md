@@ -96,7 +96,7 @@ If R * M < N * W:
 For i = 0 to N-1:
     Participant[i].id = i
     Participant[i].winCount = 0
-    Participant[i].speed = random value in [0.0, 1.0]  // higher = slower
+    Participant[i].speed = random value in [0.0, 1.0] 
 
 // Initialize chair locks
 For i = 0 to M-1:
@@ -158,5 +158,6 @@ Function compete(participant p, chairLocks):
 
 # Futher Work
 
-Cause we
+Cause this version of participant is waiting for all others to start for next round. 
+So I'll implenment this next time.
 
